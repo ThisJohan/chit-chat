@@ -5,15 +5,19 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type App struct {
 	router http.Handler
+	db     *gorm.DB
 }
 
 func New() *App {
 	app := &App{}
 
+	app.connectDB()
 	app.loadRoutes()
 
 	return app

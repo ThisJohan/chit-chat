@@ -23,7 +23,9 @@ func (a *App) loadRoutes() {
 }
 
 func (a *App) loadAuthRoutes(r chi.Router) {
-	authHandler := &handler.Auth{}
+	authHandler := &handler.Auth{
+		DB: a.db,
+	}
 
 	r.Post("/signup", authHandler.Signup)
 	r.Post("/login", authHandler.Login)

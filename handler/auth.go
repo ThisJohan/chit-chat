@@ -1,8 +1,14 @@
 package handler
 
-import "net/http"
+import (
+	"net/http"
 
-type Auth struct{}
+	"gorm.io/gorm"
+)
+
+type Auth struct {
+	DB *gorm.DB
+}
 
 func (h *Auth) Login(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Login Works"))
