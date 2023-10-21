@@ -1,6 +1,7 @@
 package application
 
 import (
+	"github.com/ThisJohan/ChitChat/repository"
 	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
 )
@@ -14,7 +15,13 @@ func (a *App) connectDB() {
 		panic("failed to connect to database")
 	}
 
+	updateMigrations()
+
 	a.db = db
+}
+
+func updateMigrations() {
+	migrate(&repository.User{})
 }
 
 func migrate(tables ...interface{}) error {

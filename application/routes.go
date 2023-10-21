@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/ThisJohan/ChitChat/handler"
+	"github.com/ThisJohan/ChitChat/repository"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
@@ -24,10 +25,10 @@ func (a *App) loadRoutes() {
 
 func (a *App) loadAuthRoutes(r chi.Router) {
 	authHandler := &handler.Auth{
-		DB: a.db,
+		Repo: repository.UserRepo{DB: a.db},
 	}
 
 	r.Post("/signup", authHandler.Signup)
 	r.Post("/login", authHandler.Login)
-	r.Get("/profile", authHandler.GetUser)
+	r.Get("/user", authHandler.GetUser)
 }
